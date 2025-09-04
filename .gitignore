@@ -1,17 +1,41 @@
-# Visual Studio / .NET
+## Visual Studio temporales
 .vs/
-bin/
-obj/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# Rider / VS Code (opcional)
-.idea/
-.vscode/
-
-# Build outputs
+## Archivos de build de .NET
+bin/
+obj/
 [Bb]uild/
 [Ll]og/
 *.log
+
+## Archivos de test / coverage
+TestResult*/
+*.coverage
+*.coveragexml
+*.nunit.xml
+
+## Paquetes (no subir el contenido de /packages salvo .config)
+packages/
+*.nupkg
+
+## Archivos de dependencias locales
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Configuración local (no necesaria en repo)
+*.local.json
+*.env
+appsettings.*.local.json
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## Archivos de publicación / publish
+publish/
+wwwroot/dist/
