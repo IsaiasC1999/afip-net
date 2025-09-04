@@ -1,0 +1,6 @@
+@bk_arca_HostAddress = http://localhost:5088
+
+GET {{bk_arca_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

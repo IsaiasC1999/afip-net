@@ -1,0 +1,17 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code (opcional)
+.idea/
+.vscode/
+
+# Build outputs
+[Bb]uild/
+[Ll]og/
+*.log
