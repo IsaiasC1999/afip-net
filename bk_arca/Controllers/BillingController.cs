@@ -16,6 +16,7 @@ namespace bk_arca.Controllers
             services = new facturacion_services();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var result = await services.FacturacionTipoB();

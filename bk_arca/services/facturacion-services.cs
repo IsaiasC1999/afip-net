@@ -11,8 +11,8 @@ namespace bk_arca.services
 
         public AuthRequestType Auth { get; set; } = new AuthRequestType
         {
-            token = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgc3JjPSJDTj13c2FhaG9tbywgTz1BRklQLCBDPUFSLCBTRVJJQUxOVU1CRVI9Q1VJVCAzMzY5MzQ1MDIzOSIgdW5pcXVlX2lkPSI1NDM5NTU1NzQiIGdlbl90aW1lPSIxNzU2OTIzOTIxIiBleHBfdGltZT0iMTc1Njk2NzE4MSIvPgogICAgPG9wZXJhdGlvbiB0eXBlPSJsb2dpbiIgdmFsdWU9ImdyYW50ZWQiPgogICAgICAgIDxsb2dpbiBlbnRpdHk9IjMzNjkzNDUwMjM5IiBzZXJ2aWNlPSJ3c210eGNhIiB1aWQ9IlNFUklBTE5VTUJFUj1DVUlUIDIwNDE4NzAzMDMzLCBDTj1wcnVlYmFkb3MiIGF1dGhtZXRob2Q9ImNtcyIgcmVnbWV0aG9kPSIyMiI+CiAgICAgICAgICAgIDxyZWxhdGlvbnM+CiAgICAgICAgICAgICAgICA8cmVsYXRpb24ga2V5PSIyMDQxODcwMzAzMyIgcmVsdHlwZT0iNCIvPgogICAgICAgICAgICA8L3JlbGF0aW9ucz4KICAgICAgICA8L2xvZ2luPgogICAgPC9vcGVyYXRpb24+Cjwvc3NvPgo=",
-            sign = "eAEAVONoVAYVI+I1Yl2Ug5op5hOKo+zrnJymgVK6lueqDRHZVrWCbvrLLexv/4HtjYKXCzm8AlthFoWigHZGX7Zd9BSpjlB3B4kXI8YO6+EZsn9L9Q/d7/eTtOtZ1emHD3BLJhMj1LqIjbVjJsa1v6j7acWh7uI1Rtcm/4X4pW0=",
+            token = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgc3JjPSJDTj13c2FhaG9tbywgTz1BRklQLCBDPUFSLCBTRVJJQUxOVU1CRVI9Q1VJVCAzMzY5MzQ1MDIzOSIgdW5pcXVlX2lkPSIzNzk4NDM3NjEyIiBnZW5fdGltZT0iMTc1NzE4MzE1NCIgZXhwX3RpbWU9IjE3NTcyMjY0MTQiLz4KICAgIDxvcGVyYXRpb24gdHlwZT0ibG9naW4iIHZhbHVlPSJncmFudGVkIj4KICAgICAgICA8bG9naW4gZW50aXR5PSIzMzY5MzQ1MDIzOSIgc2VydmljZT0id3NtdHhjYSIgdWlkPSJTRVJJQUxOVU1CRVI9Q1VJVCAyMDQxODcwMzAzMywgQ049cHJ1ZWJhZG9zIiBhdXRobWV0aG9kPSJjbXMiIHJlZ21ldGhvZD0iMjIiPgogICAgICAgICAgICA8cmVsYXRpb25zPgogICAgICAgICAgICAgICAgPHJlbGF0aW9uIGtleT0iMjA0MTg3MDMwMzMiIHJlbHR5cGU9IjQiLz4KICAgICAgICAgICAgPC9yZWxhdGlvbnM+CiAgICAgICAgPC9sb2dpbj4KICAgIDwvb3BlcmF0aW9uPgo8L3Nzbz4K",
+            sign = "I6d1fOexxcUe1mDMJoIIFsQ1rxwl7Fof1XcwnBFDq0BMnOsfL4GtNvBOezDU0Zl5Fbj9wzEJMSdP82qNvQ6G30PzxdCWa/0B3dI8T3q2kRMl68moejFvgi2SubpK4kVc4Yn42kylCY4e3tb9Oybs6T/HZa7g3fIRDjZFh0lqnyI=",
             cuitRepresentada = 20418703033
         };
         
@@ -50,6 +50,11 @@ namespace bk_arca.services
                 }
             });
 
+            var puntoDeVenta = await Client.consultarPuntosVentaCAEAsync(new consultarPuntosVentaCAERequest
+            {
+                authRequest = Auth,
+               
+            });
 
             var comp = new ComprobanteType
             {
