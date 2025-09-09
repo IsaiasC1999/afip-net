@@ -56,8 +56,7 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 }
 ```
 
-## Respuesta 
-
+## 📥 Respuesta (ejemplo)
 
 ```json
 {
@@ -67,9 +66,60 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
   "numeroComprobante": 5,
   "observaciones": []
 }
-
 ```
 
+- `resultado`: `A` (aprobada) o `R` (rechazada)  
+- `cae`, `fechaVencimientoCAE`: presentes si fue aprobada  
+- `observaciones`: códigos/leyendas devueltos por AFIP
+
+---
+
+## 🗂️ Estructura del proyecto
+
+```text
+bk_arca/
+├─ Connected Services/
+│  └─ referencias_arca_ws/
+│     ├─ ConnectedService.json
+│     └─ Reference.cs            # Proxy SOAP generado (MTXCA)
+├─ Controllers/
+│  └─ BillingController.cs       # Expone POST /facturacion/b (ajustar si difiere)
+├─ DTOs/
+│  └─ Facturacion/
+│     ├─ FacturaBRequestDto.cs
+│     ├─ ItemBRequestDto.cs
+│     └─ SubtotalIVARequestDto.cs
+├─ Enums/
+│  ├─ Concepto.cs
+│  ├─ CondicionIVA.cs
+│  ├─ TipoComprobante.cs
+│  ├─ TipoDocumento.cs
+│  └─ UnidadMtx.cs
+├─ services/
+│  ├─ Interfaces/
+│  │  └─ IFacturacionService.cs
+│  ├─ FacturacionService.cs      # Mapeo DTO → ComprobanteType + llamada a AFIP
+│  └─ facturacion-services.cs    # (si lo usás como archivo adicional)
+├─ Properties/
+│  └─ launchSettings.json        # Puertos/Base URL de desarrollo
+├─ appsettings.json
+├─ Program.cs
+├─ WeatherForecast.cs
+├─ bk_arca.http                  # (opcional) Requests para VS Code
+└─ (otros)
+```
+
+---
+
+
+## 🚀 Requisitos
+
+- .NET SDK 7 u 8 instalado.
+- Proyecto **bk_arca** compilable.
+- Configuración de **WSAA/MTXCA** para Homologación/Producción (tokens/certificados).
+- Base URL de la API (por ej. `http://localhost:5080`).
+
+---
 
 ## ▶️ Ejecutar en local
 
