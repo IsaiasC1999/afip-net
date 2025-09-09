@@ -56,35 +56,25 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 }
 ```
 
-## Estructura del proyecto 
+## Respuesta 
 
-bk_arca/
-├─ Connected Services/
-│  └─ referencias_arca_ws/
-│     ├─ ConnectedService.json
-│     └─ Reference.cs            # Proxy SOAP generado (MTXCA)
-├─ Controllers/
-│  └─ BillingController.cs       # Expone POST /facturacion/b (ajustar si difiere)
-├─ DTOs/
-│  └─ Facturacion/
-│     ├─ FacturaBRequestDto.cs
-│     ├─ ItemBRequestDto.cs
-│     └─ SubtotalIVARequestDto.cs
-├─ Enums/
-│  ├─ Concepto.cs
-│  ├─ CondicionIVA.cs
-│  ├─ TipoComprobante.cs
-│  ├─ TipoDocumento.cs
-│  └─ UnidadMtx.cs
-├─ services/
-│  ├─ Interfaces/
-│  │  └─ IFacturacionService.cs
-│  ├─ FacturacionService.cs      # Mapeo DTO → ComprobanteType + llamada a AFIP
-│  └─ facturacion-services.cs    # (si lo usás como archivo adicional)
-├─ Properties/
-│  └─ launchSettings.json        # Puertos/Base URL de desarrollo
-├─ appsettings.json
-├─ Program.cs
-├─ WeatherForecast.cs
-├─ bk_arca.http                  # (opcional) Requests para VS Code
-└─ (otros)
+
+```json
+{
+  "resultado": "A",
+  "cae": "70412345678901",
+  "fechaVencimientoCAE": "20251009",
+  "numeroComprobante": 5,
+  "observaciones": []
+}
+
+```
+
+
+## ▶️ Ejecutar en local
+
+``` bash
+dotnet restore
+dotnet build
+dotnet run --project bk_arca
+```
