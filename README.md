@@ -1,24 +1,25 @@
-# Facturación — Factura B (AFIP MTXCA)
+# 📄 Facturación — **Factura B** (AFIP MTXCA)
 
-Este endpoint autoriza **Facturas Tipo B** usando el servicio **MTXCA** de AFIP.  
-Trabaja con **precios de ítems con IVA incluido** y arma el `ComprobanteType` dentro de un **servicio de facturación**.
-
----
-
-## 📌 Endpoint
-
-- **POST** `/facturacion/b`  
-  > (Si tu controller usa otra ruta, ajustá este valor. En los ejemplos se usa `/facturacion/b`.)
-
-### Headers
-- `Content-Type: application/json`
-- `Authorization: Bearer <token>` *(si tu API tiene auth propia; **no** es el WSAA)*
+Web API para **autorizar Facturas Tipo B** contra AFIP (servicio **MTXCA**).  
+Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `ComprobanteType` se realiza dentro del **servicio de facturación**.
 
 ---
 
-## 📤 Body de ejemplo (JSON para pegar)
+## 🚀 Endpoint
 
-> Pega **exactamente** este JSON en el cuerpo del request:
+| Método | Ruta             | Descripción                       |
+|-------:|------------------|-----------------------------------|
+|  POST  | `/facturacion/b` | Autoriza una **Factura Tipo B**   |
+
+**Headers**
+- `Content-Type: application/json`  
+- `Authorization: Bearer <token>` *(solo si tu API tiene auth propia; **no** es el WSAA)*
+
+> Si tu controller usa otra base de ruta, ajustá los ejemplos.
+
+---
+
+## 📤 Body de ejemplo (cópialo tal cual)
 
 ```json
 {
@@ -53,17 +54,32 @@ Trabaja con **precios de ítems con IVA incluido** y arma el `ComprobanteType` d
     { "codigo": 5, "importe": 21.00 }
   ]
 }
+```
 
-
-##cURL
-# Reemplazá BASE_URL por tu URL real, ej: http://localhost:5080
+🧪 Cómo probar
+cURL
+bash
+Copiar código
+# Reemplazá BASE_URL por tu URL real, p. ej.: http://localhost:5080
 curl -X POST "BASE_URL/facturacion/b" \
   -H "Content-Type: application/json" \
   -d @factura-b.json
+Tip: guardá el JSON anterior como factura-b.json, o pegalo directo con -d '...json...'.
 
+Postman
+Método: POST
 
-## repuesta (ejemplo)
+URL: BASE_URL/facturacion/b
 
+Headers: Content-Type: application/json
+
+Body: raw (JSON) → pega el JSON de arriba
+
+Enviar
+
+📥 Respuesta (ejemplo)
+json
+Copiar código
 {
   "resultado": "A",
   "cae": "70412345678901",
@@ -71,11 +87,30 @@ curl -X POST "BASE_URL/facturacion/b" \
   "numeroComprobante": 5,
   "observaciones": []
 }
+resultado: A (aprobada) o R (rechazada)
 
+cae, fechaVencimientoCAE: presentes si fue aprobada
 
-# Estructura 
-Estructura según la solución AFIP-API con el proyecto bk_arca.
+observaciones: códigos/leyendas devueltos por AFIP
 
+⚖️ Reglas clave para Factura B
+Cada ítem trae precio unitario con IVA incluido.
+
+No enviar importeIVA por ítem.
+
+No enviar importeOtrosTributos = 0 → evita error 114.
+
+Consumidor Final: tipoDocumentoReceptor = 99 y numeroDocumentoReceptor = "0".
+
+condicionIVAReceptor se usa para el resumen (p. ej., 5 = 21%).
+
+Si numeroComprobante es null, el servicio consulta el último autorizado y suma 1.
+
+📁 Estructura del proyecto
+Estructura real según la solución AFIP-API (proyecto bk_arca):
+
+graphql
+Copiar código
 bk_arca/
 ├─ Connected Services/
 │  └─ referencias_arca_ws/
@@ -106,25 +141,23 @@ bk_arca/
 ├─ WeatherForecast.cs
 ├─ bk_arca.http
 └─ (otros)
+Puntos clave
 
+Proxy SOAP (MTXCA): Connected Services/referencias_arca_ws.
 
-##Puntos clave según esta estructura
+Endpoint: Controllers/BillingController.cs.
 
- - El proxy SOAP (MTXCA) se encuentra en Connected Services/referencias_arca_ws.
+DTOs: DTOs/Facturacion.
 
- - El endpoint vive en Controllers/BillingController.cs.
+Enums reutilizables: Enums.
 
- - Los DTOs de la factura están en DTOs/Facturacion.
+Lógica + mapeo FacturaBRequestDto → ComprobanteType: services/FacturacionService.cs.
 
- - Los enums reutilizables en Enums.
+Interfaz del servicio: services/Interfaces/IFacturacionService.cs.
 
- - La lógica de negocio y el mapa FacturaBRequestDto → ComprobanteType están en services/FacturacionService.cs.
-
- - La interfaz del servicio está en services/Interfaces/IFacturacionService.cs.
-
-# Ejecutar en local 
-
+▶️ Ejecutar en local
+bash
+Copiar código
 dotnet restore
 dotnet build
 dotnet run --project bk_arca
-
