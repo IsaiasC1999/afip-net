@@ -56,68 +56,15 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 }
 ```
 
-🧪 Cómo probar
-cURL
-bash
-Copiar código
-# Reemplazá BASE_URL por tu URL real, p. ej.: http://localhost:5080
-curl -X POST "BASE_URL/facturacion/b" \
-  -H "Content-Type: application/json" \
-  -d @factura-b.json
-Tip: guardá el JSON anterior como factura-b.json, o pegalo directo con -d '...json...'.
+## Estructura del proyecto 
 
-Postman
-Método: POST
-
-URL: BASE_URL/facturacion/b
-
-Headers: Content-Type: application/json
-
-Body: raw (JSON) → pega el JSON de arriba
-
-Enviar
-
-📥 Respuesta (ejemplo)
-json
-Copiar código
-{
-  "resultado": "A",
-  "cae": "70412345678901",
-  "fechaVencimientoCAE": "20251009",
-  "numeroComprobante": 5,
-  "observaciones": []
-}
-resultado: A (aprobada) o R (rechazada)
-
-cae, fechaVencimientoCAE: presentes si fue aprobada
-
-observaciones: códigos/leyendas devueltos por AFIP
-
-⚖️ Reglas clave para Factura B
-Cada ítem trae precio unitario con IVA incluido.
-
-No enviar importeIVA por ítem.
-
-No enviar importeOtrosTributos = 0 → evita error 114.
-
-Consumidor Final: tipoDocumentoReceptor = 99 y numeroDocumentoReceptor = "0".
-
-condicionIVAReceptor se usa para el resumen (p. ej., 5 = 21%).
-
-Si numeroComprobante es null, el servicio consulta el último autorizado y suma 1.
-
-📁 Estructura del proyecto
-Estructura real según la solución AFIP-API (proyecto bk_arca):
-
-graphql
-Copiar código
 bk_arca/
 ├─ Connected Services/
 │  └─ referencias_arca_ws/
 │     ├─ ConnectedService.json
-│     └─ Reference.cs                     # Proxy SOAP generado (MTXCA)
+│     └─ Reference.cs            # Proxy SOAP generado (MTXCA)
 ├─ Controllers/
-│  └─ BillingController.cs                # Expone POST /facturacion/b (ajustar si difiere)
+│  └─ BillingController.cs       # Expone POST /facturacion/b (ajustar si difiere)
 ├─ DTOs/
 │  └─ Facturacion/
 │     ├─ FacturaBRequestDto.cs
@@ -132,32 +79,12 @@ bk_arca/
 ├─ services/
 │  ├─ Interfaces/
 │  │  └─ IFacturacionService.cs
-│  ├─ FacturacionService.cs               # Mapeo DTO → ComprobanteType + llamada a AFIP
-│  └─ facturacion-services.cs             # (archivo adicional si lo usás)
+│  ├─ FacturacionService.cs      # Mapeo DTO → ComprobanteType + llamada a AFIP
+│  └─ facturacion-services.cs    # (si lo usás como archivo adicional)
 ├─ Properties/
-│  └─ launchSettings.json                 # Puertos/base URL de desarrollo
+│  └─ launchSettings.json        # Puertos/Base URL de desarrollo
 ├─ appsettings.json
 ├─ Program.cs
 ├─ WeatherForecast.cs
-├─ bk_arca.http
+├─ bk_arca.http                  # (opcional) Requests para VS Code
 └─ (otros)
-Puntos clave
-
-Proxy SOAP (MTXCA): Connected Services/referencias_arca_ws.
-
-Endpoint: Controllers/BillingController.cs.
-
-DTOs: DTOs/Facturacion.
-
-Enums reutilizables: Enums.
-
-Lógica + mapeo FacturaBRequestDto → ComprobanteType: services/FacturacionService.cs.
-
-Interfaz del servicio: services/Interfaces/IFacturacionService.cs.
-
-▶️ Ejecutar en local
-bash
-Copiar código
-dotnet restore
-dotnet build
-dotnet run --project bk_arca
