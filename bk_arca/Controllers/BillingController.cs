@@ -1,28 +1,35 @@
-﻿using bk_arca.services;
+﻿using bk_arca.DTOs.Facturacion;
+using bk_arca.services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using referencias_arca_ws;
 
 namespace bk_arca.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/facturacion")]
     [ApiController]
     public class BillingController : ControllerBase
     {
 
-        public facturacion_services services { get; set; }
+        
+
+        public FacturacionService service { get; set; }
 
         public BillingController()
         {
-            services = new facturacion_services();
+            service = new FacturacionService();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        
+
+        [HttpPost("b")]
+        public async Task<ActionResult<autorizarComprobanteResponse>> PostFacturaB([FromBody] FacturaBRequestDto dto)
         {
-            var result = await services.FacturacionTipoB();
-            return Ok(result);
-        }
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
+            var resp = await service.AutorizarFacturaBAsync(dto);
+            return Ok(resp.comprobanteResponse);
+        }
 
     }
 }
