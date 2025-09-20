@@ -1,6 +1,6 @@
 ﻿namespace bk_arca.Enums
 {
-    public enum CondicionIVA
+     public enum CondicionIVA
     {
         Exento = 1,
         NoGravado = 2,

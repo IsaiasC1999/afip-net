@@ -52,14 +52,14 @@ namespace bk_arca.services
 
             var puntoDeVenta = await Client.consultarPuntosVentaCAEAsync(new consultarPuntosVentaCAERequest
             {
-                authRequest = Auth,
+                authRequest = Auth
                
             });
 
             var comp = new ComprobanteType
             {
                 // Encabezado
-                codigoTipoComprobante = 6,          // 6 = Factura B
+                codigoTipoComprobante = 6,        // 6 = Factura B
                 numeroPuntoVenta = 4000,
                 numeroComprobante = ultimoComprobante.numeroComprobante + 1, // consultá antes el último autorizado
                 fechaEmision = DateTime.Today,

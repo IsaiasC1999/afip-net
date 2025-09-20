@@ -1,11 +1,10 @@
 ﻿using bk_arca.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace bk_arca.DTOs.Facturacion
+namespace bk_arca.DTOs.Facturacion.FacturaA
 {
-    public class ItemBRequestDto
+    public class ItemARequestDto
     {
-        // Código MTX de AFIP (si lo usás)
         [MaxLength(50)]
         public string? CodigoMtx { get; set; }
 
@@ -25,10 +24,14 @@ namespace bk_arca.DTOs.Facturacion
         [Range(0.0001, double.MaxValue)]
         public decimal Cantidad { get; set; }
 
-        // FACTURA B: precio unitario CON IVA incluido
+        // FACTURA A: precio unitario SIN IVA incluido
         [Required]
         [Range(0.00, double.MaxValue)]
-        public decimal PrecioUnitarioConIva { get; set; }
+        public decimal PrecioUnitario { get; set; }
+
+        [Required]
+        [Range(0.00, double.MaxValue)]
+        public decimal ImporteIva { get; set; }
 
         // Para el resumen (p.e. 5 = 21%)
         [Required]

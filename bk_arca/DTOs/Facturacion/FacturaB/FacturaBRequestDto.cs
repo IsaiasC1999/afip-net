@@ -1,7 +1,7 @@
 ﻿using bk_arca.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace bk_arca.DTOs.Facturacion
+namespace bk_arca.DTOs.Facturacion.FacturaB
 {
     public class FacturaBRequestDto
     {
@@ -36,7 +36,8 @@ namespace bk_arca.DTOs.Facturacion
         public CondicionIVA CondicionIVAReceptor { get; set; } = CondicionIVA.Gravado21;
 
         // Totales (B trabaja con precios IVA incluido por ítem)
-        [Required]
+        
+
         [Range(0, double.MaxValue)]
         public decimal ImporteGravado { get; set; }
 
@@ -46,11 +47,10 @@ namespace bk_arca.DTOs.Facturacion
         [Range(0, double.MaxValue)]
         public decimal ImporteExento { get; set; } = 0m;
 
-        [Required]
+        
         [Range(0, double.MaxValue)]
         public decimal ImporteSubtotal { get; set; }
 
-        [Required]
         [Range(0, double.MaxValue)]
         public decimal ImporteTotal { get; set; }
 
