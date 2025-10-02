@@ -10,7 +10,7 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 | Método | Ruta             | Descripción                       |
 |-------:|------------------|-----------------------------------|
 |  POST  | `/facturacion/b` | Autoriza una **Factura Tipo B**   
-|  POST  | `/facturacion/a` | Autoriza una **Factura Tipo B**   |
+|  POST  | `/facturacion/a` | Autoriza una **Factura Tipo A**   |
 
 **Headers**
 - `Content-Type: application/json`  
