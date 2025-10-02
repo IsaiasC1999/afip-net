@@ -10,6 +10,8 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 | Método | Ruta             | Descripción                       |
 |-------:|------------------|-----------------------------------|
 |  POST  | `/facturacion/b` | Autoriza una **Factura Tipo B**   |
+|-------:|------------------|-----------------------------------|
+|  POST  | `/facturacion/a` | Autoriza una **Factura Tipo B**   |
 
 **Headers**
 - `Content-Type: application/json`  
@@ -19,23 +21,18 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
 
 ---
 
-## 📤 Body de ejemplo (cópialo tal cual)
+## 📤 Body de ejemplo factura b (cópialo tal cual)
 
 ```json
 {
   "numeroPuntoVenta": 4000,
   "tipoComprobante": 6,
   "numeroComprobante": null,
-  "fechaEmision": "2025-09-09",
+  "fechaEmision": "2025-10-02"  <--- actualizar a fecha actual,
   "comprobanteConcepto": 1,
   "tipoDocumentoReceptor": 99,
   "numeroDocumentoReceptor": "0",
   "condicionIVAReceptor": 5,
-  "importeGravado": 100.00,
-  "importeNoGravado": 0.00,
-  "importeExento": 0.00,
-  "importeSubtotal": 100.00,
-  "importeTotal": 121.00,
   "codigoMoneda": "PES",
   "cotizacionMoneda": 1.00,
   "items": [
@@ -48,13 +45,20 @@ Los ítems trabajan con **precio unitario con IVA incluido**. El armado del `Com
       "precioUnitarioConIva": 121.00,
       "codigoCondicionIVA": 5,
       "importeItem": 121.00
+    },
+        {
+      "codigoMtx": "P0001",
+      "codigo": "P0002",
+      "descripcion": "Producto de prueba",
+      "unidadMtx": 7,
+      "cantidad": 2.0,
+      "precioUnitarioConIva": 200.00,
+      "codigoCondicionIVA": 5,
+      "importeItem": 400.00
     }
-  ],
-  "subtotalesIVA": [
-    { "codigo": 5, "importe": 21.00 }
-  ]
-}
-```
+]
+  
+}```
 
 ## 📥 Respuesta (ejemplo)
 
